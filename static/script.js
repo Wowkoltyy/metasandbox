@@ -11,9 +11,14 @@ window.onload = () => {$(".end").first().css({top: $("body").first().height() - 
 function tick() {
     $(".square.playing").each((i, square) => {
         let jsquare = $(square)
-        jsquare.css({position: 'absolute', top: jsquare.position().top + speed})
-        jsquare.attr("delta", (Number(jsquare.attr("delta")) + speed).toString())
-        if(jsquare.position().top > $(".end").first().position().top - jsquare.width())jsquare.removeClass("playing").addClass("stopped")
+        let delta = Number(jsquare.attr("delta"))
+        jsquare.css({position: 'absolute', top: jsquare.position().top + speed*Math.abs(delta)/Math.abs(delta)})
+        delta += speed
+        jsquare.attr("delta", delta.toString())
+        if(jsquare.position().top > $(".end").first().position().top - jsquare.width()){
+            if(Math.abs(Number(jsquare.attr("delta"))) < 5)return jsquare.removeClass("playing").addClass("stopped")
+            delta *= -1
+        }
     })
     if(mouseDown && mouseX < window.innerWidth && mouseY < window.innerHeight){
         $(".gameArea").append($("<div>", {"class": "square playing"}).css({top: mouseY, left: mouseX, position:'absolute'}).attr("delta", "0"))

@@ -16,7 +16,7 @@ function tick() {
         if(jsquare.position().top > $(".end").first().position().top - jsquare.width())jsquare.removeClass("playing").addClass("stopped")
     })
     if(mouseDown && mouseX < window.innerWidth && mouseY < window.innerHeight){
-        $(".gameArea").append($("<div>", {"class": "square playing"}).css({top: mouseY, left: mouseX, position:'absolute'})).attr("delta", "0")
+        $(".gameArea").append($("<div>", {"class": "square playing"}).css({top: mouseY, left: mouseX, position:'absolute'}).attr("delta", "0"))
     }
 }   
 $(document).mousedown(function() {

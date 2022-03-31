@@ -16,8 +16,9 @@ function tick() {
         delta += speed
         jsquare.attr("delta", delta.toString())
         if(jsquare.position().top > $(".end").first().position().top - jsquare.width()){
-            if(Math.abs(Number(jsquare.attr("delta"))) < 5)return jsquare.removeClass("playing").addClass("stopped")
-            delta *= -1
+            if(Math.floor(Math.abs(delta)) < 5)return jsquare.removeClass("playing").addClass("stopped")
+            delta = Math.floor(delta*0.5)*-0.5
+            jsquare.attr("delta", delta.toString())
         }
     })
     if(mouseDown && mouseX < window.innerWidth && mouseY < window.innerHeight){

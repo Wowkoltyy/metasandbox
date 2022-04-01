@@ -8,23 +8,19 @@ const tps = 30
 const mspt = 1000 / tps
 const speed = 10
 let n = 0
-
 window.onload = () => {$(".end").first().css({top: $("body").first().height() - $(".end").first().height() , position: 'absolute'})}
-
 function tick() {
     $(".square.playing").each((d, square) => {
-
         let jsquare = $(square)
         let i = Number(jsquare.attr("n"))
         if(!delta[i])delta[i] = 0
         let sqSpeed = speed*delta[i]/window.innerHeight
         let newTop = jsquare.position().top + sqSpeed
         let maxPos = $(".end").first().position().top - jsquare.width()
-
-        if (newTop > maxPos) jsquare.css({position: 'absolute', top: newTop - (newTop % maxPos)})
-        else jsquare.css({position: 'absolute', top: newTop})
-
-        if(jsquare.position().top >= maxPos){
+        jsquare.css({position: 'absolute', top: newTop})
+        
+        if(newTop > maxPos){
+            jsquare.css({position: 'absolute', top: newTop - (newTop % maxPos)})
             if(Math.floor(Math.abs(delta[i])) < speed)return jsquare.removeClass("playing").addClass("stopped")
             delta[i] = Math.floor(delta[i]*0.5)*-1
         }

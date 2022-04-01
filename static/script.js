@@ -12,7 +12,7 @@ function tick() {
     $(".square.playing").each((i, square) => {
         let jsquare = $(square)
         let delta = Number(jsquare.attr("delta"))
-        jsquare.css({position: 'absolute', top: jsquare.position().top + speed*(Math.abs(delta)/delta)})
+        jsquare.css({position: 'absolute', top: jsquare.position().top + speed*(Math.abs(delta)/window.innerHeight*2)})
         delta += speed
         jsquare.attr("delta", delta.toString())
         if(jsquare.position().top > $(".end").first().position().top - jsquare.width()){

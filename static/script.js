@@ -27,10 +27,13 @@ function tick() {
 
         delta[i] += speed
     })
-    if(mouseDown && mouseX < window.innerWidth && mouseY < window.innerHeight){
+    if(mouseDown && mouseX < $("body").first().width() - $(".square").last().width() && mouseY < window.innerHeight - $(".end").first().height()){
         $(".gameArea").append($("<div>", {"class": "square playing"}).css({top: mouseY, left: mouseX, position:'absolute'}).attr("n", n.toString()))
         n += 1
     }
+}
+function toRadians (angle) {
+    return angle * (Math.PI / 180)
 }   
 $(document).mousedown(() => {
     mouseDown = true

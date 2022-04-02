@@ -4,6 +4,7 @@ let colors = ["red", "green", "blue"]
 let mouseDown = false
 let mouseX, mouseY
 let delta = new Object()
+let stoppedData = new Array()
 const tps = 30
 const mspt = 1000 / tps
 const speed = 10
@@ -16,18 +17,27 @@ function tick() {
         if(!delta[i])delta[i] = 0
         let sqSpeed = speed*delta[i]/window.innerHeight
         let newTop = jsquare.position().top + sqSpeed
-        let maxPos = $(".end").first().position().top - jsquare.width()
+        let maxPos = window.innerHeight * 0.945
         jsquare.css({position: 'absolute', top: newTop})
-        
+
         if(newTop > maxPos){
             jsquare.css({position: 'absolute', top: newTop - (newTop % maxPos)})
-            if(Math.floor(Math.abs(delta[i])) < speed)return jsquare.removeClass("playing").addClass("stopped")
+            if(Math.floor(Math.abs(delta[i])) < speed){
+                jsquare.removeClass("playing").addClass("stopped")
+                delta[i] = null
+                stoppedData[i] = JSON.stringify(jsquare.position())
+                if(stoppedData.indexOf(stoppedData[i]) !== i){
+                    jsquare.remove()
+                    stoppedData[i] = null
+                }
+                return
+            }
             delta[i] = Math.floor(delta[i]*0.5)*-1
         }
 
         delta[i] += speed
     })
-    if(mouseDown && mouseX < window.innerWidth - window.innerWidth * 0.005 && mouseY < window.innerHeight - window.innerHeight * 0.055){
+    if(mouseDown && mouseX < window.innerWidth * 0.995 && mouseY < window.innerHeight * 0.945){
         $(".gameArea").append($("<div>", {"class": "square playing"}).css({top: mouseY, left: mouseX, position:'absolute'}).attr("n", n.toString()))
         n += 1
     }

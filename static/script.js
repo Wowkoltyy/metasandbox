@@ -17,7 +17,7 @@ function tick() {
         if(!delta[i])delta[i] = 0
         let sqSpeed = speed*delta[i]/window.innerHeight
         let newTop = jsquare.position().top + sqSpeed
-        let maxPos = window.innerHeight * 0.945
+        let maxPos = window.innerHeight * 0.95 - window.innerWidth * 0.005
         jsquare.css({position: 'absolute', top: newTop})
 
         if(newTop > maxPos){
@@ -25,6 +25,7 @@ function tick() {
             if(Math.floor(Math.abs(delta[i])) < speed){
                 jsquare.removeClass("playing").addClass("stopped")
                 delta[i] = null
+                jsquare.css({position: 'absolute', left: Math.floor(jsquare.position().left)})
                 stoppedData[i] = JSON.stringify(jsquare.position())
                 if(stoppedData.indexOf(stoppedData[i]) !== i){
                     jsquare.remove()

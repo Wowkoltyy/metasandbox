@@ -27,7 +27,7 @@ function tick() {
 
         delta[i] += speed
     })
-    if(mouseDown && mouseX < $("body").first().width() - $(".square").last().width() && mouseY < window.innerHeight - $(".end").first().height()){
+    if(mouseDown && mouseX < window.innerWidth - window.innerWidth * 0.005 && mouseY < window.innerHeight - window.innerHeight * 0.055){
         $(".gameArea").append($("<div>", {"class": "square playing"}).css({top: mouseY, left: mouseX, position:'absolute'}).attr("n", n.toString()))
         n += 1
     }
